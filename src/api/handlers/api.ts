@@ -1,4 +1,3 @@
-// frontend/utils/axiosInstance.js
 import axios from 'axios';
 
 const api = axios.create({
@@ -8,10 +7,6 @@ const api = axios.create({
 
 api.interceptors.request.use(
     (config) => {
-        const accessToken = localStorage.getItem('accessToken');
-        if (accessToken) {
-            config.headers.Authorization = `Bearer ${accessToken}`;
-        }
         return config;
     },
     (error) => Promise.reject(error)
@@ -24,10 +19,8 @@ api.interceptors.response.use(
         if (error.response.status === 403 && !originalRequest._retry) {
             originalRequest._retry = true;
             try {
-                const { data } = await api.post('/refresh');
-                localStorage.setItem('accessToken', data.accessToken);
-                originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
-                return api(originalRequest);
+                await api.post('/refresh'); // Request backend to refresh token
+                return api(originalRequest); // Retry original request
             } catch (err) {
                 console.error('Refresh token expired');
                 return Promise.reject(err);
