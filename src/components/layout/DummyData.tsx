@@ -1,30 +1,24 @@
-import api from '@/api/handlers/api';
 import React from 'react';
-import { revalidatePath } from 'next/cache';
-import RefreshApi from './RefreshApi';
+import api from '@/api/handlers/api'; // Import API handler to fetch data
+import RefreshApi from './RefreshApi'; // Component to handle periodic refresh
 
 export const revalidate = 10; // Revalidate every 10 seconds
 
 async function getData() {
   try {
-    const response = await api.get("/api/users");
-    return response.data;
+    const response = await api.get("/api/users"); // Fetch data from backend
+    return response.data; // Return fetched data
   } catch (err) {
     console.error("Error getting data", err);
-    return null;
+    return null; // Return null in case of error
   }
 }
 
-export async function refreshData() {
-  "use server";
-  revalidatePath('/'); // Forces re-fetch
-}
-
 const DummyData = async () => {
-  const data = await getData();
+  const data = await getData(); // Fetch user data
 
   if (!data || !data.users) {
-    return <h2>No Data Available</h2>;
+    return <h2>No Data Available</h2>; // If no data, show this message
   }
 
   return (
@@ -38,13 +32,13 @@ const DummyData = async () => {
         ))}
       </ul>
 
-      {/* Button that triggers refreshData when clicked */}
-      <form action={refreshData}>
+      {/* Form to manually trigger the refresh */}
+      <form action="/api/refresh-data" method="POST">
         <button type="submit">Refresh Data</button>
       </form>
 
       {/* Calling RefreshApi component for periodic refresh */}
-      <RefreshApi refreshData={refreshData} />
+      <RefreshApi />
     </div>
   );
 };
