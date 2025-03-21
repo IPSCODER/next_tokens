@@ -1,5 +1,5 @@
 import api from '@/api/handlers/api';
-import React, { cache } from 'react';
+import React from 'react';
 import { revalidatePath } from 'next/cache';
 import RefreshApi from './RefreshApi';
 

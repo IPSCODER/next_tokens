@@ -1,7 +1,8 @@
 "use client"
 import React from 'react'
 
- const RefreshApi = ({refreshData}:any) =>{
+// @ts-ignore
+ const RefreshApi = ({refreshData}) =>{
     "use client"
   
     React.useEffect(() =>{
