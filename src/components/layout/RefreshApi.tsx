@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 
-// @ts-ignore
+// @ts-expect-error
  const RefreshApi = ({refreshData}) =>{
     "use client"
   
