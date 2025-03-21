@@ -3,7 +3,6 @@ import React from 'react';
 import { revalidatePath } from 'next/cache';
 import RefreshApi from './RefreshApi';
 
-
 export const revalidate = 10; // Revalidate every 10 seconds
 
 async function getData() {
@@ -14,7 +13,6 @@ async function getData() {
     console.error("Error getting data", err);
     return null;
   }
-  
 }
 
 export async function refreshData() {
@@ -39,16 +37,16 @@ const DummyData = async () => {
           </li>
         ))}
       </ul>
-       <form action={refreshData}>
-              <button type="submit">Refresh Data</button>
-            </form>
-            <RefreshApi refreshData={refreshData} />
+
+      {/* Button that triggers refreshData when clicked */}
+      <form action={refreshData}>
+        <button type="submit">Refresh Data</button>
+      </form>
+
+      {/* Calling RefreshApi component for periodic refresh */}
+      <RefreshApi refreshData={refreshData} />
     </div>
   );
 };
 
 export default DummyData;
-
-
-
-

@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect } from 'react';
 
-// @ts-expect-error: Ignoring type error for now because refreshData is passed dynamically
 const RefreshApi = ({ refreshData }: { refreshData: () => void }) => {
     useEffect(() => {
         const x = setInterval(() => {
