@@ -1,4 +1,3 @@
-import { revalidatePath } from 'next/cache';
 
 // Function to fetch data from an external API
 async function getData() {
